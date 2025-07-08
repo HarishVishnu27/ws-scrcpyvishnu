@@ -22,42 +22,6 @@ const loadPlatformModulesPromises: Promise<void>[] = [];
 
 const config = Config.getInstance();
 
-/// #if INCLUDE_GOOG
-async function loadGoogModules() {
-    const { ControlCenter } = await import('./goog-device/services/ControlCenter');
-    const { DeviceTracker } = await import('./goog-device/mw/DeviceTracker');
-    const { WebsocketProxyOverAdb } = await import('./goog-device/mw/WebsocketProxyOverAdb');
-
-    if (config.runLocalGoogTracker) {
-        mw2List.push(DeviceTracker);
-    }
-
-    if (config.announceLocalGoogTracker) {
-        HostTracker.registerLocalTracker(DeviceTracker);
-    }
-
-    servicesToStart.push(ControlCenter);
-
-    /// #if INCLUDE_ADB_SHELL
-    const { RemoteShell } = await import('./goog-device/mw/RemoteShell');
-    mw2List.push(RemoteShell);
-    /// #endif
-
-    /// #if INCLUDE_DEV_TOOLS
-    const { RemoteDevtools } = await import('./goog-device/mw/RemoteDevtools');
-    mwList.push(RemoteDevtools);
-    /// #endif
-
-    /// #if INCLUDE_FILE_LISTING
-    const { FileListing } = await import('./goog-device/mw/FileListing');
-    mw2List.push(FileListing);
-    /// #endif
-
-    mwList.push(WebsocketProxyOverAdb);
-}
-loadPlatformModulesPromises.push(loadGoogModules());
-/// #endif
-
 /// #if INCLUDE_APPL
 async function loadApplModules() {
     const { ControlCenter } = await import('./appl-device/services/ControlCenter');
@@ -65,10 +29,14 @@ async function loadApplModules() {
     const { WebDriverAgentProxy } = await import('./appl-device/mw/WebDriverAgentProxy');
 
     // Hack to reduce log-level of appium libs
-    const { default: npmlog } = await import('npmlog');
-    npmlog.level = 'warn';
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (global as any)._global_npmlog = npmlog;
+    try {
+        const npmlog = await import('npmlog');
+        npmlog.level = 'warn';
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (global as any)._global_npmlog = npmlog;
+    } catch (e) {
+        // npmlog not available, ignore
+    }
 
     if (config.runLocalApplTracker) {
         mw2List.push(DeviceTracker);

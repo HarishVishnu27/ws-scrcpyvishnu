@@ -46,7 +46,7 @@ export class QvhackRunner extends ProcessRunner<ProcessRunnerEvents> {
         this.releaseTimeoutId = setTimeout(() => {
             super.release();
             QvhackRunner.instances.delete(this.udid);
-        }, QvhackRunner.SHUTDOWN_TIMEOUT);
+        }, QvhackRunner.SHUTDOWN_TIMEOUT) as unknown as NodeJS.Timeout;
     }
 
     protected async getArgs(): Promise<string[]> {

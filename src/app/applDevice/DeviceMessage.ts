@@ -1,5 +1,6 @@
 import Util from '../Util';
 
+// Minimal DeviceMessage implementation for iOS-only compatibility
 export default class DeviceMessage {
     public static TYPE_CLIPBOARD = 0;
     public static TYPE_PUSH_RESPONSE = 101;
