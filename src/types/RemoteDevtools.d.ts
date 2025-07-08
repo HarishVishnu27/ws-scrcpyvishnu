@@ -1,5 +1,4 @@
 export interface VersionMetadata {
-    'Android-Package': string;
     Browser: string;
     'Protocol-Version': string;
     'User-Agent': string;
