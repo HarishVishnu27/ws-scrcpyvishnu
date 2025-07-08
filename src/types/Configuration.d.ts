@@ -1,6 +1,6 @@
 import * as https from 'https';
 
-export type OperatingSystem = 'android' | 'ios';
+export type OperatingSystem = 'ios';
 
 export interface HostItem {
     type: OperatingSystem;
@@ -42,7 +42,5 @@ export interface Configuration {
     server?: ServerItem[];
     runApplTracker?: boolean;
     announceApplTracker?: boolean;
-    runGoogTracker?: boolean;
-    announceGoogTracker?: boolean;
     remoteHostList?: HostsItem[];
 }
