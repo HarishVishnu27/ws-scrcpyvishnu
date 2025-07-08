@@ -102,7 +102,7 @@ export class WdaRunner extends TypedEmitter<WdaRunnerEvents> {
                 this.server.close();
                 delete this.server;
             }
-        }, WdaRunner.SHUTDOWN_TIMEOUT);
+        }, WdaRunner.SHUTDOWN_TIMEOUT) as unknown as NodeJS.Timeout;
     }
 
     public get mjpegPort(): number {
