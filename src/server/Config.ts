@@ -13,13 +13,6 @@ const JSON_RE = /^.+\.(json|js)$/i;
 export class Config {
     private static instance?: Config;
     private static initConfig(userConfig: Configuration = {}): Required<Configuration> {
-        let runGoogTracker = false;
-        let announceGoogTracker = false;
-        /// #if INCLUDE_GOOG
-        runGoogTracker = true;
-        announceGoogTracker = true;
-        /// #endif
-
         let runApplTracker = false;
         let announceApplTracker = false;
         /// #if INCLUDE_APPL
@@ -33,9 +26,7 @@ export class Config {
             },
         ];
         const defaultConfig: Required<Configuration> = {
-            runGoogTracker,
             runApplTracker,
-            announceGoogTracker,
             announceApplTracker,
             server,
             remoteHostList: [],
@@ -132,14 +123,6 @@ export class Config {
             }
         });
         return hostList;
-    }
-
-    public get runLocalGoogTracker(): boolean {
-        return this.fullConfig.runGoogTracker;
-    }
-
-    public get announceLocalGoogTracker(): boolean {
-        return this.fullConfig.runGoogTracker;
     }
 
     public get runLocalApplTracker(): boolean {

@@ -16,6 +16,8 @@
   "author": "Sergey Volkov <drauggres@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "appium-support": "^2.55.0",
+    "appium-xcuitest-driver": "^9.9.4",
     "express": "^4.21.2",
     "ios-device-lib": "^0.9.2",
     "node-mjpeg-proxy": "^0.3.2",
@@ -58,9 +60,5 @@
     "webpack-cli": "^4.10.0",
     "webpack-node-externals": "^2.5.2",
     "worker-loader": "^3.0.8"
-  },
-  "optionalDependencies": {
-    "appium-xcuitest-driver": "^3.62.0",
-    "appium-support": "^2.58.1"
   }
 }
